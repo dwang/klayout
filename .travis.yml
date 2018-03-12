@@ -1,0 +1,42 @@
+# qt app example with linux and mac: https://stackoverflow.com/questions/29721240/ci-for-qt-app-build-with-different-qt-versions
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode9.3beta
+      env:
+        - MATRIX_EVAL=""
+
+    # - os: osx
+    #   osx_image: xcode8
+    #   env:
+    #     - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+    # - os: osx
+    #   osx_image: xcode8
+    #   env:
+    #     - MATRIX_EVAL="brew install gcc5 && CC=gcc-5 && CXX=g++-5"
+
+    # - os: osx
+    #   osx_image: xcode8
+    #   env:
+    #     - MATRIX_EVAL="brew install gcc6 && CC=gcc-6 && CXX=g++-6"
+
+    # - os: osx
+    #   osx_image: xcode8
+    #   env:
+    #     - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+
+before_install:
+    - eval "${MATRIX_EVAL}"
+    - brew update
+    - brew bundle
+
+install:
+  - git clone https://github.com/kristovatlas/osx-config-check
+  - cd osx-config-check ; python2.7 app.py --report-only --skip-sudo-checks ; cd ..
+
+script:
+  - ./build4mac.py -p B36 -q Qt5Custom -c
+  - ./build4mac.py -p B36 -q Qt5Custom
+  - ./build4mac.py -p B36 -q Qt5Custom -y
