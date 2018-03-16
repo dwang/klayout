@@ -1014,8 +1014,6 @@ def main():
     ret2 = DeployScriptBundles()
     if not ret2 == 0:
       sys.exit(1)
-    else:
-      sys.exit(0)
 
 #===================================================================================
 if __name__ == "__main__":
