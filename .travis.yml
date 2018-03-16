@@ -37,7 +37,7 @@ install:
   - cd osx-config-check ; python2.7 app.py --report-only --skip-sudo-checks ; cd ..
 
 script:
-  - ./build4mac.py -p B36 -q Qt5Custom -c
-  - ./build4mac.py -p B36 -q Qt5Custom
-  - ./build4mac.py -p B36 -q Qt5Custom -y
+  - python3 build4mac.py -p B36 -q Qt5Brew -c
+  - python3 build4mac.py -p B36 -q Qt5Brew
+  - python3 build4mac.py -p B36 -q Qt5Brew -y
   - qt5.pkg.macos-HighSierra-release/klayout.app/Contents/MacOS/klayout -b -r test-pylib-script.py
