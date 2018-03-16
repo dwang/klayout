@@ -38,6 +38,6 @@ install:
 
 script:
   - python3 build4mac.py -p B36 -q Qt5Brew -c
-  - python3 build4mac.py -p B36 -q Qt5Brew
+  - source filter-clang.sh; python3 build4mac.py -p B36 -q Qt5Brew | filter
   - python3 build4mac.py -p B36 -q Qt5Brew -y
   - qt5.pkg.macos-HighSierra-release/klayout.app/Contents/MacOS/klayout -b -r test-pylib-script.py
