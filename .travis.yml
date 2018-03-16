@@ -41,3 +41,8 @@ script:
   - source filter-clang.sh; python3 build4mac.py -p B36 -q Qt5Brew | filter
   - python3 build4mac.py -p B36 -q Qt5Brew -y
   - qt5.pkg.macos-HighSierra-release/klayout.app/Contents/MacOS/klayout -b -r test-pylib-script.py
+  - cd qt5.build.macos-HighSierra-release
+  - export TESTTMP=testtmp    # path to a directory that will hold temporary data (will be created)
+  - export TESTSRC=..         # path to the source directory
+  - ./ut_runner -h
+  - ./ut_runner
