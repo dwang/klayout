@@ -67,7 +67,7 @@ def SetGlobals():
   Usage += "                        : Refer to 'macbuild/build4mac_env.py' for details           | \n"
   Usage += "   [-q|--qt <type>]     : type=['Qt4MacPorts', 'Qt5MacPorts', 'Qt5Brew']             | qt5macports \n"
   Usage += "   [-r|--ruby <type>]   : type=['nil', 'Sys', 'Src24', 'MP24', 'B25']                | sys \n"
-  Usage += "   [-p|--python <type>] : type=['nil', 'Sys', 'Ana27', 'Ana36', 'MP36', 'B36']       | sys \n"
+  Usage += "   [-p|--python <type>] : type=['nil', 'Sys', 'Ana27', 'Ana36', 'MP36', 'B37']       | sys \n"
   Usage += "   [-n|--noqtbinding]   : don't create Qt bindings for ruby scripts                  | disabled \n"
   Usage += "   [-m|--make <option>] : option passed to 'make'                                    | -j4 \n"
   Usage += "   [-d|--debug]         : enable debug mode build                                    | disabled \n"
@@ -175,7 +175,7 @@ def ParseCommandLineArguments():
 
   p.add_option( '-p', '--python',
                 dest='type_python',
-                help="Python type=['nil', 'Sys', 'Ana27', 'Ana36', 'MP36']" )
+                help="Python type=['nil', 'Sys', 'Ana27', 'Ana36', 'MP36', 'B37']" )
 
   p.add_option( '-n', '--noqtbinding',
                 action='store_true',
@@ -294,7 +294,7 @@ def ParseCommandLineArguments():
     exit()
 
   # Determine Python type
-  candidates   = [ i.upper() for i in ['nil', 'Sys', 'Ana27', 'Ana36', 'MP36', 'B36'] ]
+  candidates   = [ i.upper() for i in ['nil', 'Sys', 'Ana27', 'Ana36', 'MP36', 'B37'] ]
   ModulePython = ""
   index        = 0
   for item in candidates:
@@ -324,7 +324,7 @@ def ParseCommandLineArguments():
         ModulePython = 'Python36MacPorts'
         NonOSStdLang = True
       elif index == 5:
-        ModulePython = 'Python36Brew'
+        ModulePython = 'Python37Brew'
         NonOSStdLang = True
     else:
       index += 1
@@ -779,12 +779,12 @@ def DeployBinariesForBundle():
       shell_commands = list()
       shell_commands.append(f"rm -rf {pythonFrameworkPath}")
       shell_commands.append(f"rsync -a --safe-links {pythonOriginalFrameworkPath}/ {pythonFrameworkPath}")
-      shell_commands.append(f"mkdir {pythonFrameworkPath}/Versions/3.6/lib/python3.6/site-packages/")
-      shell_commands.append(f"cp -RL {pythonOriginalFrameworkPath}/Versions/3.6/lib/python3.6/site-packages/{{pip*,pkg_resources,setuptools*,wheel*}} " +
-                            f"{pythonFrameworkPath}/Versions/3.6/lib/python3.6/site-packages/")
-      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.6/lib/python3.6/test")
-      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.6/Resources")
-      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.6/bin")
+      shell_commands.append(f"mkdir {pythonFrameworkPath}/Versions/3.7/lib/python3.7/site-packages/")
+      shell_commands.append(f"cp -RL {pythonOriginalFrameworkPath}/Versions/3.7/lib/python3.7/site-packages/{{pip*,pkg_resources,setuptools*,wheel*}} " +
+                            f"{pythonFrameworkPath}/Versions/3.7/lib/python3.7/site-packages/")
+      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.7/lib/python3.7/test")
+      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.7/Resources")
+      shell_commands.append(f"rm -rf {pythonFrameworkPath}/Versions/3.7/bin")
 
       for command in shell_commands:
         if subprocess.call( command, shell=True ) != 0:
@@ -834,7 +834,7 @@ def DeployBinariesForBundle():
       PerformChanges(depdict, [(pythonOriginalFrameworkPath, appPythonFrameworkPath, False)], bundleExecPathAbs)
 
       print("  [4] Patching site.py, pip/, and distutils/")
-      site_module = f"{pythonFrameworkPath}/Versions/3.6/lib/python3.6/site.py"
+      site_module = f"{pythonFrameworkPath}/Versions/3.7/lib/python3.7/site.py"
       with open(site_module, 'r') as site:
         buf = site.readlines()
       with open(site_module, 'w') as site:
@@ -849,7 +849,7 @@ def DeployBinariesForBundle():
             line = "ENABLE_USER_SITE = False\n"
           site.write(line)
 
-      pip_module = f"{pythonFrameworkPath}/Versions/3.6/lib/python3.6/site-packages/pip/__init__.py"
+      pip_module = f"{pythonFrameworkPath}/Versions/3.7/lib/python3.7/site-packages/pip/__init__.py"
       with open(pip_module, 'r') as pip:
         buf = pip.readlines()
       with open(pip_module, 'w') as pip:
@@ -859,7 +859,7 @@ def DeployBinariesForBundle():
           line = re.sub("return isolated$", "return isolated or True", line)
           pip.write(line)
 
-      distutilsconfig = f"{pythonFrameworkPath}/Versions/3.6/lib/python3.6/distutils/distutils.cfg"
+      distutilsconfig = f"{pythonFrameworkPath}/Versions/3.7/lib/python3.7/distutils/distutils.cfg"
       with open(distutilsconfig, 'r') as file:
         buf = file.readlines()
       with open(distutilsconfig, 'w') as file:
