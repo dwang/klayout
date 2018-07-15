@@ -27,7 +27,7 @@ script:
   - ./ut_runner -s || true
 
 deploy:
-  provider: s3
+- provider: s3
   access_key_id: AKIAIV2JJIENURARWFUQ
   secret_access_key:
     secure: LdxO80/boYFIa/6XuF1gi2V7vtoDFro+ImIcmf8ARKddYxjlLp31mVDt1ZezeYvjPt3T0KvDErMtez7Ea8yUPXayxLycAb5nEhP6QMTuW3QcSTllsG3Bpz1b1zCx4LiYWzYbmgqHru1kh3WhqQbKAgq4Xl5zIIE2yvWlGvpUf9mP586KGe5HJl6hbAJI8XdkJTjp48jHanKIUlxDDPrxon1i1GD+8PSl2JEvggRpp+mSaA5dJJJRYPNFlQn0T1TuHkRBErLqHYJ8qTSee72jMbTOVOPxuMy4KKdZt6bpDJiJccH2FJ87+qyXM/8dDQnlpWPVOgQhklFBMUmGkooVxfjphVLmBRNgkfohBC6DmKeIk/Os+TRvXjuL/SMwQ17jwKSRw/QPrIGwvGb2GdZ/jQCV0WWw3x/N8xlXZ2EhkLC8lznVuaf++CCC3qm0+ejojRFz7uFyqDvq9HPXHzllZTbTMI+6+QE5Gpi1s513iio/nRPYCLoyFe5144VfnlJCXxsC11jrous2HWo2YFJGqj0ipJdnit/Kolq+Shs2gTiGz0yb7f/JKsyA/N0Bz4npKlt7O1MmXyFjDJCfSn2WyfXjSYiyKu3fjkbf4e4AK5qsR2BcNlJXl6Z3ACLIS6OinRPFLZyCS24yQ0eNIR1Q5Xvg88vTUbyhDc2QsYpyP1Y=
@@ -36,5 +36,16 @@ deploy:
   skip_cleanup: true
   on:
     repo: dwang/klayout
+    branch: travis-ci-pr
+- provider: s3
+  access_key_id: AKIAIXPXYEX34WE3NP3Q
+  secret_access_key:
+    secure: RpFqflEZp5BZhkBoIzQPZExUsLmNexF/T58IrljiTNRvt5jfVdBMybd/FEeLitk5WkIBVtQZvh0opsNKTymUkScq41Dod9TaKaVydK2phse1bT3VUjGdgxNEz3uUBQNvLJAK0VLvrplgPmEFC8tuNoaDNkgnrv4dSLCszGCkYADVNGoLXcN/8q6IGNSf3F4Cyym+blDLcOBdSuRGA6Ia9ex2m7kJDk8AklR4XSFvnI8B0ugvD0kCbecDRH3sL+4jicT2BmCETYijIl5NyhDPdr4m2U7mmGHGKcP5KhA/+3sZjxJ4lMxhl7klke0+RceFh+RtQsTLJYOapa5tvfyfPNT3jiEAFJRbpWyIsdmKZlYHKuOKr2YN3k6D+5t5hIEnJHGbPsH0/0KgPHl9m7SQVz29VZuUDGel8TKqpx0smsmHQ74BYKeQhtFEOU0RSPcYVm/8dhsIeHvz0qqQSZcMzDrojXOV8c6vnP6nymfx+V0kzi6GPIHTT9Ur28u7Tdxw5fVgOSTRFT6Sy8wvHfwUlYDQILi8uzpIpGxI+bxI2qb0nv3t4ayewO6R/b0eTFzQtXsawSdt0kZ20WlzHuVNv3KYSZTxLBQ7csfgf4cd9tcNRwm/k/b+8p6Q/Y1vVb19Vt9fiTMcSt/ZLR8ovfM6690y4mvmyRhSOkoFAd3fJMw=
+  bucket: tlima.klayout
+  acl: bucket_owner_full_control
+  skip_cleanup: true
+  local_dir: qt5.pkg.macos-HighSierra-release
+  on:
+    repo: lightwave-lab/klayout
     branch: travis-ci-pr
 
