@@ -12,6 +12,8 @@ before_install:
   - env
 
 install:
+  - rvm install ruby --latest
+  - gem install dropbox-deployment
   - git clone https://github.com/kristovatlas/osx-config-check
   - cd osx-config-check ; python2.7 app.py --report-only --skip-sudo-checks ; cd ..
 
@@ -31,6 +33,9 @@ script:
   - mkdir deploy
   - tar czf "deploy/qt5.pkg.macos-HighSierra-release-$gitcommit.tar.gz" qt5.pkg.macos-HighSierra-release
 
+after_success:
+  - dropbox-deployment
+
 deploy:
 - provider: s3
   access_key_id: AKIAIV2JJIENURARWFUQ
@@ -41,17 +46,5 @@ deploy:
   skip_cleanup: true
   on:
     repo: dwang/klayout
-    branch: travis-ci-pr
-- provider: s3
-  access_key_id: AKIAIXPXYEX34WE3NP3Q
-  secret_access_key:
-    secure: RpFqflEZp5BZhkBoIzQPZExUsLmNexF/T58IrljiTNRvt5jfVdBMybd/FEeLitk5WkIBVtQZvh0opsNKTymUkScq41Dod9TaKaVydK2phse1bT3VUjGdgxNEz3uUBQNvLJAK0VLvrplgPmEFC8tuNoaDNkgnrv4dSLCszGCkYADVNGoLXcN/8q6IGNSf3F4Cyym+blDLcOBdSuRGA6Ia9ex2m7kJDk8AklR4XSFvnI8B0ugvD0kCbecDRH3sL+4jicT2BmCETYijIl5NyhDPdr4m2U7mmGHGKcP5KhA/+3sZjxJ4lMxhl7klke0+RceFh+RtQsTLJYOapa5tvfyfPNT3jiEAFJRbpWyIsdmKZlYHKuOKr2YN3k6D+5t5hIEnJHGbPsH0/0KgPHl9m7SQVz29VZuUDGel8TKqpx0smsmHQ74BYKeQhtFEOU0RSPcYVm/8dhsIeHvz0qqQSZcMzDrojXOV8c6vnP6nymfx+V0kzi6GPIHTT9Ur28u7Tdxw5fVgOSTRFT6Sy8wvHfwUlYDQILi8uzpIpGxI+bxI2qb0nv3t4ayewO6R/b0eTFzQtXsawSdt0kZ20WlzHuVNv3KYSZTxLBQ7csfgf4cd9tcNRwm/k/b+8p6Q/Y1vVb19Vt9fiTMcSt/ZLR8ovfM6690y4mvmyRhSOkoFAd3fJMw=
-  bucket: tlima.klayout
-  acl: bucket_owner_full_control
-  skip_cleanup: true
-  local_dir: deploy
-  region: us-east-2
-  on:
-    repo: lightwave-lab/klayout
     branch: travis-ci-pr
 
