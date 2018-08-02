@@ -10,6 +10,7 @@ before_install:
   - brew update
   - brew bundle
   - env
+  - pip install pathlib2
 
 install:
   - gem install dropbox-deployment
