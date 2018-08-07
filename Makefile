@@ -1,3 +1,5 @@
+.PHONY: help build deploy test
+
 default: help
 
 help:
