@@ -12,7 +12,8 @@ help:
 
 build: 
 	./build4mac.py -p $(PYTHON_VERSION) -q Qt5Brew -c
-	./build4mac.py -p $(PYTHON_VERSION) -q Qt5Brew
+	source filter-clang.sh
+	./build4mac.py -p $(PYTHON_VERSION) -q Qt5Brew | filter
 
 deploy: build
 	./build4mac.py -p $(PYTHON_VERSION) -q Qt5Brew -y
