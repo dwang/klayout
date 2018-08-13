@@ -1,5 +1,7 @@
 .PHONY: help build deploy test dropbox-deploy
 
+.ONESHELL:
+
 default: help
 
 help:
@@ -18,7 +20,7 @@ deploy: build
 	./build4mac.py -p $(PYTHON_VERSION) -q Qt5Brew -y
 	
 test: deploy
-	qt5.pkg.macos--release/klayout.app/Contents/MacOS/klayout -b -r test-pylib-script.py; \
+	qt5.pkg.macos-$(MACOS_VERSION)-release/klayout.app/Contents/MacOS/klayout -b -r test-pylib-script.py; \
 	cd qt5.build.macos-$(MACOS_VERSION)-release; \
 	ln -s klayout.app/Contents/MacOS/klayout klayout; \
 	export TESTTMP=testtmp; \
