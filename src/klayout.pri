@@ -84,7 +84,8 @@ equals(HAVE_QT5, "1") {
 win32 {
   QMAKE_LFLAGS += -Wl,--exclude-all-symbols
 } else {
-  QMAKE_CXXFLAGS += -fvisibility=hidden
+  # used to be visibility=hidden
+  QMAKE_CXXFLAGS += -fvisibility=default
 }
 
 VERSION_STRING = $$KLAYOUT_VERSION
