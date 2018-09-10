@@ -52,7 +52,7 @@ install:
   - git clone https://github.com/kristovatlas/osx-config-check
   - cd osx-config-check ; python2.7 app.py --report-only --skip-sudo-checks ; cd ..
 
-script: ./travis-build.sh || true
+script: ./travis-build.sh
 
 after_success:
   - dropbox-deployment
