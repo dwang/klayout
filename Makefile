@@ -31,7 +31,7 @@ test: deploy
 	export TESTTMP=testtmp; \
 	export TESTSRC=..; \
 	./ut_runner -h; \
-	./ut_runner || true; \
+#	./ut_runner || true; \
 	cd ..;
 
 dropbox-deploy: test
