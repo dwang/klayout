@@ -38,7 +38,7 @@ dropbox-deploy: test
 	@echo "Preparing for dropbox deployment $(MACOS_VERSION) $(GITCOMMIT)"
 	mkdir deploy; \
 	pwd; \
-	ls -la; \
+	ls -lah; \
 	touch build.txt; \
-	mv build.txt deploy; \
+	cp build.txt deploy; \
 	tar czf "deploy/qt5.pkg.macos-$(MACOS_VERSION)-release-$(GITCOMMIT).tar.gz" qt5.pkg.macos-$(MACOS_VERSION)-release
